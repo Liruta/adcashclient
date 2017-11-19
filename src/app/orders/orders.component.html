@@ -1,0 +1,102 @@
+<div class="card">
+  <div class="card-header">
+    Add new order
+  </div>
+  <div class="card-body">
+
+    <div class="form-group">
+      <label for="userSelect">Select User</label>
+      <select class="form-control" id="userSelect" [(ngModel)]="newOrder.user">
+        <option *ngFor="let user of users" value="{{user.id}}">{{user.name}}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="productSelect">Select Product</label>
+      <select class="form-control" id="productSelect" [(ngModel)]="newOrder.product">
+        <option *ngFor="let product of products" value="{{product.id}}">{{product.name}}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="quantity">Quantity</label>
+      <input type="number" class="form-control" id="quantity" [(ngModel)]="newOrder.quantity">
+    </div>
+
+
+
+  </div>
+  <div class="card-footer">
+    <div class="btn btn-primary" (click)="createOrder()">Add Order</div>
+  </div>
+</div>
+
+<hr>
+<div class="card">
+  <div class="card-header">
+    Orders
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label for="search">Search</label>
+          <input type="text" class="form-control" id="search" [(ngModel)]="search" placeholder="Search">
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label for="Limit">Limit</label>
+          <select class="form-control" id="Limit" [(ngModel)]="limit">
+            <option value="">All time</option>
+            <option value="7days">7 days</option>
+            <option value="today">Today</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label for="order">Order</label>
+          <select class="form-control" id="order" [(ngModel)]="order">
+            <option value="">Date</option>
+            <option value="username">Username</option>
+            <option value="productname">Product name</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="btn btn-info" (click)="getOrders()">Refresh</div>
+    <br>
+    <br>
+
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>User</th>
+          <th>Product</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Total</th>
+          <th>Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of orders">
+          <td>{{order.username}}</td>
+          <td>{{order.product_name}}</td>
+          <td>{{order.u_price | currency:'EUR':'symbol'}}</td>
+          <td>{{order.quantity}}</td>
+          <td>{{order.total | currency:'EUR':'symbol'}}</td>
+          <td>{{order.order_time | date:'d MMM y, h:mma'}}</td>
+          <td>
+            <div class="btn btn-sm btn-secondary" (click)="editOrder(order.id)">Edit</div>
+            <div class="btn btn-sm btn-danger" (click)="deleteOrder(order.id)">Delete</div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
